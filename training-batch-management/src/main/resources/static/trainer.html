@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Trainer Dashboard</title>
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<h2>Trainer Dashboard</h2>
+
+<div class="card">
+    <h3>Create Batch</h3>
+
+    <input type="text" id="batchName" placeholder="Batch Name">
+    <input type="date" id="startDate">
+    <input type="date" id="endDate">
+
+    <button onclick="createBatch()">Create Batch</button>
+    <button onclick="completeTopic(1)">Complete Topic</button>
+</div>
+
+<div class="card">
+    <h3>Notifications 🔔 (<span id="count">0</span>)</h3>
+    <ul id="notifications"></ul>
+</div>
+
+<div class="card">
+    <h3>My Batches</h3>
+    <table id="batchTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Progress</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script src="js/trainer.js"></script>
+
+</body>
+</html>
