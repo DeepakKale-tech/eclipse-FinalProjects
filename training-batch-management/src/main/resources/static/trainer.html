@@ -3,41 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <title>Trainer Dashboard</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Calendar -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
 <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
 
-<h2>Trainer Dashboard</h2>
+<body class="bg-light">
 
-<div class="card">
-    <h3>Create Batch</h3>
+<div class="container mt-4">
 
-    <input type="text" id="batchName" placeholder="Batch Name">
-    <input type="date" id="startDate">
-    <input type="date" id="endDate">
+    <h2 class="mb-4">Trainer Dashboard 🚀</h2>
 
-    <button onclick="createBatch()">Create Batch</button>
-    <button onclick="completeTopic(1)">Complete Topic</button>
+    <!-- CREATE BATCH -->
+    <div class="card p-3 mb-3 shadow-sm">
+        <h4>Create Batch</h4>
+
+        <div class="row">
+            <div class="col-md-4">
+                <input class="form-control mb-2" type="text" id="batchName" placeholder="Batch Name">
+            </div>
+            <div class="col-md-3">
+                <input class="form-control mb-2" type="date" id="startDate">
+            </div>
+            <div class="col-md-3">
+                <input class="form-control mb-2" type="date" id="endDate">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100" onclick="createBatch()">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="card p-3 mb-3 shadow-sm">
+        <h4>
+            Notifications 🔔 
+            <span class="badge bg-danger" id="count">0</span>
+        </h4>
+        <ul id="notifications" class="list-group"></ul>
+    </div>
+
+    <!-- CHART -->
+    <div class="card p-3 mb-3 shadow-sm">
+        <h4>Batch Progress 📊</h4>
+        <canvas id="progressChart"></canvas>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="card p-3 mb-3 shadow-sm">
+        <h4>Batch Calendar 📅</h4>
+        <div id="calendar"></div>
+    </div>
+
+    <!-- BATCH TABLE -->
+    <div class="card p-3 shadow-sm">
+        <h4>My Batches</h4>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Progress</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="batchTable"></tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
-<div class="card">
-    <h3>Notifications 🔔 (<span id="count">0</span>)</h3>
-    <ul id="notifications"></ul>
-</div>
+<!-- WebSocket -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 
-<div class="card">
-    <h3>My Batches</h3>
-    <table id="batchTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Progress</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
-
+<script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/trainer.js"></script>
 
 </body>

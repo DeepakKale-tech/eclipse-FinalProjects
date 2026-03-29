@@ -1,5 +1,7 @@
 package com.deepak.training_batch_management.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +24,7 @@ public class AuthController {
 	private JwtUtil jwtUtil;
 	
 	@PostMapping("/login")
-	public String login(@RequestBody AuthRequest request)
+	public Map<String, Object> login(@RequestBody AuthRequest request)
 	{
 		User user = userRepository.findByEmail(request.getEmail())
 				.orElseThrow(() -> new RuntimeException("User Not Found"));
@@ -32,6 +34,9 @@ public class AuthController {
 			throw new RuntimeException("Invalid Password");
 		}
 		
-		return jwtUtil.generateToken(user.getEmail());
+		String token = jwtUtil.generateToken(user.getEmail());
+		
+		return Map.of("token", token,
+				"role", user.getRole().name());
 	}
 }

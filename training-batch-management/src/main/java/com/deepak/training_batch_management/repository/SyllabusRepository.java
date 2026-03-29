@@ -8,5 +8,5 @@ import com.deepak.training_batch_management.entity.SyllabusTopic;
 
 public interface SyllabusRepository extends JpaRepository<SyllabusTopic, Long> {
 	List<SyllabusTopic> findByBatchId(Long batchId);
-
+	
 }

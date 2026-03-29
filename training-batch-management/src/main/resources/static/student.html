@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Dashboard</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-4">
+
+    <h2>Student Dashboard 🎓</h2>
+
+    <!-- Notifications -->
+    <div class="card p-3 mb-3 shadow-sm">
+        <h4>
+            Notifications 🔔 
+            <span class="badge bg-danger" id="count">0</span>
+        </h4>
+        <ul id="notifications" class="list-group"></ul>
+    </div>
+
+    <!-- Batches -->
+    <div class="card p-3 shadow-sm">
+        <h4>My Batches</h4>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Batch</th>
+                        <th>Progress</th>
+                        <th>Topics</th>
+                    </tr>
+                </thead>
+                <tbody id="batchTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="js/student.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

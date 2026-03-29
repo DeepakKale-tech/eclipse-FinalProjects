@@ -2,43 +2,65 @@
 <html>
 <head>
 <title>Admin Dashboard</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
-<div class="container">
-    <h1>Admin Dashboard</h1>
+<body class="bg-light">
 
-    <div class="card">
-        <h3>Create User</h3>
+<div class="container mt-4">
 
-        <input type="text" id="name" placeholder="Name">
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
+    <h2 class="mb-4">Admin Dashboard 👑</h2>
 
-        <select id="role">
-            <option value="ADMIN">ADMIN</option>
-            <option value="TRAINER">TRAINER</option>
-        </select>
+    <!-- CREATE USER -->
+    <div class="card p-3 mb-3 shadow-sm">
+        <h4>Create User</h4>
 
-        <button onclick="createUser()">Create User</button>
+        <div class="row">
+            <div class="col-md-3">
+                <input class="form-control mb-2" type="text" id="name" placeholder="Name">
+            </div>
+            <div class="col-md-3">
+                <input class="form-control mb-2" type="email" id="email" placeholder="Email">
+            </div>
+            <div class="col-md-3">
+                <input class="form-control mb-2" type="password" id="password" placeholder="Password">
+            </div>
+            <div class="col-md-2">
+                <select class="form-select mb-2" id="role">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="TRAINER">TRAINER</option>
+                    <option value="STUDENT">STUDENT</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary w-100" onclick="createUser()">Add</button>
+            </div>
+        </div>
     </div>
 
-    <div class="card">
-        <h3>Users List</h3>
-        <table id="userTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <!-- USERS TABLE -->
+    <div class="card p-3 shadow-sm">
+        <h4>Users List</h4>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable"></tbody>
+            </table>
+        </div>
     </div>
+
 </div>
 
 <script src="js/admin.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

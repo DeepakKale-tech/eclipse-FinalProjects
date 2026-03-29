@@ -11,17 +11,26 @@ async function login() {
         body: JSON.stringify({ email, password })
     });
 
-    const token = await response.text();
+    if (!response.ok) {
+        alert("Invalid credentials ❌");
+        return;
+    }
 
-    // store token
-    localStorage.setItem("token", token);
+    const data = await response.json(); // ✅ IMPORTANT
 
-    alert("Login successful");
+    localStorage.setItem("token", data.token);
 
-    // redirect (simple logic)
-    if (email.includes("admin")) {
+    const role = data.role;
+
+    alert("Login successful ✅");
+
+    if (role === "ADMIN") {
         window.location.href = "admin.html";
-    } else {
+    } 
+    else if (role === "TRAINER") {
         window.location.href = "trainer.html";
+    }
+    else if (role === "STUDENT") {
+        window.location.href = "student.html";
     }
 }

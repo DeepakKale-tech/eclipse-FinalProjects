@@ -1,12 +1,15 @@
 package com.deepak.training_batch_management.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
@@ -27,4 +30,12 @@ public class Batch {
 	@ManyToOne
 	@JoinColumn(name = "trainer_id")
 	private User trainer;
+	
+	@ManyToMany
+	@JoinTable(
+	    name = "batch_students",
+	    joinColumns = @JoinColumn(name = "batch_id"),
+	    inverseJoinColumns = @JoinColumn(name = "student_id")
+	)
+	private List<User> students;
 }

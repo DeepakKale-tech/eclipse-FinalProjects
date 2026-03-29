@@ -1,8 +1,10 @@
 package com.deepak.training_batch_management.security;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,9 +28,8 @@ public class CustomerUserDetailsService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(
 					user.getEmail(),
 					user.getPassword(),
-					Collections.singleton(() -> 
-							"ROLE_" + user.getRole().name()
-							)
+					List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+					
 				);
 	}
 }

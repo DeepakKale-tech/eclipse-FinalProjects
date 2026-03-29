@@ -23,13 +23,15 @@ public class SyllabusController
 	    @Autowired
 	    private BatchRepository batchRepository;
 
+	    
 	    @PostMapping("/add-topic/{batchId}")
-	    public ResponseEntity<?> addTopic(@PathVariable Long batchId, @RequestBody SyllabusTopic topic) 
-	    {
+	    public ResponseEntity<?> addTopic(@PathVariable Long batchId, @RequestBody SyllabusTopic topic) {
 
-	        Batch batch = batchRepository.findById(batchId).orElseThrow();
+	        Batch batch = batchRepository.findById(batchId)
+	                .orElseThrow(() -> new RuntimeException("Batch not found"));
 
 	        topic.setBatch(batch);
+	        topic.setCompleted(false);
 
 	        return ResponseEntity.ok(syllabusRepository.save(topic));
 	    }

@@ -43,6 +43,7 @@ public class JwtFilter extends OncePerRequestFilter {
 							new UsernamePasswordAuthenticationToken(
 									userDetails, null, userDetails.getAuthorities());
 					
+					authToken.setDetails(new org.springframework.security.web.authentication.WebAuthenticationDetailsSource().buildDetails(request));
 					SecurityContextHolder.getContext().setAuthentication(authToken);
 					//System.out.println("Valid token for user : " +jwtUtil.extractEmail(token));	
 				}else

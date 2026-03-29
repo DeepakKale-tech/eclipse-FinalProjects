@@ -3,6 +3,7 @@ package com.deepak.training_batch_management.service;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.deepak.training_batch_management.entity.Notification;
@@ -14,6 +15,8 @@ public class NotificationService {
 
 	@Autowired
 	private NotificationRepository notificationRepository;
+	@Autowired
+	private SimpMessagingTemplate messagingTemplate;
 	
 	 public void sendNotification(User user, String message) {
 
@@ -24,5 +27,7 @@ public class NotificationService {
 	        n.setReadStatus(false);
 
 	        notificationRepository.save(n);
+	        
+	        messagingTemplate.convertAndSend("/topic/notifications/"+user.getId() , n);
 	    }
 }

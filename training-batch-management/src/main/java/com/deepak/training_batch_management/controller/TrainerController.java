@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,10 +73,15 @@ public class TrainerController {
 		return ResponseEntity.ok("Topic Completed");
 	}
 	
+	
 	@GetMapping("/batches")
-	public List<Batch> getBatches()
-	{
-		return batchRepository.findAll();
+	public List<Batch> getBatches(Authentication auth) {
+
+		System.out.println("AUTH NAME: " + auth.getName());
+	    String email = auth.getName();
+	    User trainer = userRepository.findByEmail(email).orElseThrow();
+
+	    return batchRepository.findByTrainer(trainer);
 	}
 	
 	@GetMapping("/notifications")
@@ -86,4 +92,40 @@ public class TrainerController {
 
 	    return notificationRepository.findByUser(user);
 	}
+	
+	@GetMapping("/topics/{batchId}")
+	public List<SyllabusTopic> getTopicsByBatch(@PathVariable Long batchId) {
+	    return syllabusRepository.findByBatchId(batchId);
+	}
+	
+	@GetMapping("/me")
+	public User getLoggedInUser(Authentication auth)
+	{
+		String email = auth.getName();
+		return userRepository.findByEmail(email).orElseThrow();
+	}
+	
+	@PutMapping("/notifications/read/{id}")
+	public ResponseEntity<?> markAsRead(@PathVariable Long id) {
+
+	    Notification n = notificationRepository.findById(id).orElseThrow();
+	    n.setReadStatus(true);
+
+	    notificationRepository.save(n);
+
+	    return ResponseEntity.ok("Read");
+	}
+	
+	@PostMapping("/assign-student/{batchId}/{studentId}")
+	public ResponseEntity<?> assignStudent(@PathVariable Long batchId, @PathVariable Long studentId) {
+
+	    Batch batch = batchRepository.findById(batchId).orElseThrow();
+	    User student = userRepository.findById(studentId).orElseThrow();
+
+	    batch.getStudents().add(student);
+	    batchRepository.save(batch);
+
+	    return ResponseEntity.ok("Student Assigned");
+	}
+	
 }

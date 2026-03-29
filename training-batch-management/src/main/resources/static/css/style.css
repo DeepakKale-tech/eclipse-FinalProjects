@@ -1,51 +1,53 @@
 @charset "UTF-8";
+
+/* ===== GLOBAL ===== */
 body {
-    font-family: 'Segoe UI';
+    font-family: 'Segoe UI', sans-serif;
     background: #f4f6f9;
-    margin: 0;
 }
 
-.container {
-    padding: 20px;
+/* ===== CUSTOM CARD ENHANCEMENT ===== */
+.card {
+    border-radius: 12px;
+    transition: transform 0.2s ease;
 }
 
-h1 {
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== TABLE IMPROVEMENT ===== */
+table td, table th {
+    vertical-align: middle;
+}
+
+/* ===== NOTIFICATION LIST ===== */
+#notifications li {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#notifications li:hover {
+    background: #f1f1f1;
+}
+
+/* ===== PROGRESS BAR TEXT CENTER ===== */
+.progress-bar {
+    font-size: 12px;
     text-align: center;
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    margin: 20px auto;
-    width: 60%;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.btn-primary {
+    border-radius: 8px;
 }
 
 input, select {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
+    border-radius: 8px !important;
 }
 
-button {
-    background: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #0056b3;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+/* ===== MOBILE FIX ===== */
+@media (max-width: 768px) {
+    .card {
+        margin: 10px;
+    }
 }
