@@ -33,23 +33,24 @@ public class JwtFilter extends OncePerRequestFilter {
 			String token = authHeader.substring(7);
 			String email = jwtUtil.extractEmail(token);
 			
-			if(email!=null && SecurityContextHolder.getContext().getAuthentication() == null)
-			{
-				UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-				
-				if(jwtUtil.validateToken(token))
-				{
-					UsernamePasswordAuthenticationToken authToken = 
-							new UsernamePasswordAuthenticationToken(
-									userDetails, null, userDetails.getAuthorities());
-					
-					authToken.setDetails(new org.springframework.security.web.authentication.WebAuthenticationDetailsSource().buildDetails(request));
-					SecurityContextHolder.getContext().setAuthentication(authToken);
-					//System.out.println("Valid token for user : " +jwtUtil.extractEmail(token));	
-				}else
-				{
-					System.out.println("Invalid Token");
-				}
+			if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+			    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+			    if (jwtUtil.validateToken(token, userDetails)) {
+
+			        UsernamePasswordAuthenticationToken authToken =
+			                new UsernamePasswordAuthenticationToken(
+			                        userDetails,
+			                        null,
+			                        userDetails.getAuthorities());
+
+			        authToken.setDetails(
+			                new org.springframework.security.web.authentication.WebAuthenticationDetailsSource()
+			                        .buildDetails(request));
+
+			        SecurityContextHolder.getContext().setAuthentication(authToken);
+			    }
 			}
 			
 		}

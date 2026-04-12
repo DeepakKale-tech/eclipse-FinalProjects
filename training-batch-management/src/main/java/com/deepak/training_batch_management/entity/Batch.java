@@ -24,8 +24,15 @@ public class Batch {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String status;
+
+	//private String domain;
 	
+	private String timing;
 	private double progressPercentage;
+	
+	@ManyToOne
+	@JoinColumn(name = "domain_id")
+	private Domain domain;
 	
 	@ManyToOne
 	@JoinColumn(name = "trainer_id")

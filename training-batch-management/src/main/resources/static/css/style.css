@@ -3,51 +3,153 @@
 /* ===== GLOBAL ===== */
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: #f4f6f9;
+    background-color: #f5f7fb;
+    margin: 0;
 }
 
-/* ===== CUSTOM CARD ENHANCEMENT ===== */
+/* ===== SIDEBAR ===== */
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1000;
+
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+}
+/* ===== MAIN CONTENT SHIFT ===== */
+.flex-grow-1 {
+    margin-left: 250px;
+}
+.content {
+    margin-left: 250px;
+}
+#sidebar .nav-link {
+    color: #cbd5f5;
+    padding: 10px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+#sidebar .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+/* ===== TOPBAR ===== */
+.navbar {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ===== CARDS ===== */
 .card {
     border-radius: 12px;
-    transition: transform 0.2s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
     transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
 }
 
-/* ===== TABLE IMPROVEMENT ===== */
+.card-header {
+    font-weight: 600;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+/* ===== TABLE ===== */
+table th {
+    background-color: #f8fafc;
+}
+
 table td, table th {
     vertical-align: middle;
 }
 
-/* ===== NOTIFICATION LIST ===== */
-#notifications li {
-    cursor: pointer;
-    transition: background 0.2s;
+/* ===== INPUTS ===== */
+input, select {
+    border-radius: 8px !important;
+    border: 1px solid #ddd !important;
+    padding: 6px;
 }
 
-#notifications li:hover {
-    background: #f1f1f1;
+input:focus, select:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
 }
 
-/* ===== PROGRESS BAR TEXT CENTER ===== */
+/* ===== BUTTONS ===== */
+.btn {
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress {
+    height: 12px;
+    border-radius: 10px;
+    background-color: #e5e7eb;
+}
+
 .progress-bar {
-    font-size: 12px;
+    border-radius: 10px;
+    font-size: 11px;
     text-align: center;
 }
 
-.btn-primary {
-    border-radius: 8px;
+/* ===== NOTIFICATIONS ===== */
+#notifications li {
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
 }
 
-input, select {
-    border-radius: 8px !important;
+#notifications li:hover {
+    background: #f1f5f9;
+    transform: scale(1.01);
 }
 
-/* ===== MOBILE FIX ===== */
+/* ===== BADGES ===== */
+.badge {
+    font-size: 11px;
+    padding: 5px 8px;
+    border-radius: 6px;
+}
+
+/* ===== CALENDAR FIX ===== */
+#calendar {
+    width: 100%;
+    min-height: 500px;
+}
+
+/* ===== CHART FIX ===== */
+#progressChart {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
 @media (max-width: 768px) {
+
+    #sidebar {
+        width: 100%;
+        min-height: auto;
+    }
+
     .card {
-        margin: 10px;
+        margin-bottom: 15px;
+    }
+
+    .row > div {
+        margin-bottom: 10px;
     }
 }

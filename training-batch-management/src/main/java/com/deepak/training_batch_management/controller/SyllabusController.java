@@ -25,14 +25,21 @@ public class SyllabusController
 
 	    
 	    @PostMapping("/add-topic/{batchId}")
-	    public ResponseEntity<?> addTopic(@PathVariable Long batchId, @RequestBody SyllabusTopic topic) {
+		public ResponseEntity<?> addTopic(@PathVariable Long batchId, @RequestBody SyllabusTopic topic) {
 
-	        Batch batch = batchRepository.findById(batchId)
-	                .orElseThrow(() -> new RuntimeException("Batch not found"));
+		    Batch batch = batchRepository.findById(batchId)
+		            .orElseThrow(() -> new RuntimeException("Batch not found"));
 
-	        topic.setBatch(batch);
-	        topic.setCompleted(false);
+		    Boolean exists = syllabusRepository.findByBatchId(batchId)
+		    		.stream().anyMatch(t -> t.getTopicName().equalsIgnoreCase(topic.getTopicName()));
+		    
+		    if(exists)
+		    {
+		    	return ResponseEntity.badRequest().body("Topic Already Exists ❌");
+		    }
+		    topic.setBatch(batch);
+		    topic.setCompleted(false);
 
-	        return ResponseEntity.ok(syllabusRepository.save(topic));
-	    }
+		    return ResponseEntity.ok(syllabusRepository.save(topic));
+		}
 }

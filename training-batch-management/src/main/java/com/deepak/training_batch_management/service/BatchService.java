@@ -65,4 +65,20 @@ public class BatchService {
 
 	    return saved;
 	}
+	
+	public Batch save(Batch batch) {
+	    return batchRepository.save(batch);
+	}
+
+	public List<Batch> findAll() {
+	    return batchRepository.findAll();
+	}
+
+	public List<Batch> findByDomain(String domain) {
+	    return batchRepository.findByDomainContainingIgnoreCase(domain);
+	}
+
+	public List<Batch> findByStatus(String status) {
+	    return batchRepository.findByStatus(status);
+	}
 }

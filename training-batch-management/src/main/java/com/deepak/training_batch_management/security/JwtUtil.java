@@ -3,6 +3,7 @@ package com.deepak.training_batch_management.security;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
@@ -40,7 +41,7 @@ public class JwtUtil {
 				.getSubject();
 	}
 	
-	public boolean validateToken(String token)
+	public boolean validateToken(String token, UserDetails userDetails)
 	{
 		try
 		{

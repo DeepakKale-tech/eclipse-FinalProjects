@@ -12,4 +12,8 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
 	List<Batch> findByTrainer(User trainer);
 	
 	List<Batch> findByStudentsContains(User student);
+	
+	List<Batch> findByDomainContainingIgnoreCase(String domain);
+
+	List<Batch> findByStatus(String status);
 }

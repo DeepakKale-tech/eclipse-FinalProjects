@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Edit Batch</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm p-4">
+        <h3 class="mb-4">✏️ Edit Batch</h3>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <label>Batch Name</label>
+                <input type="text" id="batchName" class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label>Domain</label>
+                <select id="domain" class="form-select"></select>
+            </div>
+
+            <div class="col-md-4">
+                <label>Status</label>
+                <select id="status" class="form-select">
+                    <option value="ONGOING">ONGOING</option>
+                    <option value="COMPLETED">COMPLETED</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 mt-3">
+                <label>Start Time</label>
+                <input type="time" id="startTime" class="form-control">
+            </div>
+
+            <div class="col-md-3 mt-3">
+                <label>End Time</label>
+                <input type="time" id="endTime" class="form-control">
+            </div>
+
+            <div class="col-md-3 mt-3">
+                <label>Start Date</label>
+                <input type="date" id="startDate" class="form-control">
+            </div>
+
+            <div class="col-md-3 mt-3">
+                <label>End Date</label>
+                <input type="date" id="endDate" class="form-control">
+            </div>
+
+            <div class="col-md-4 mt-3">
+                <label>Trainer</label>
+                <select id="trainerId" class="form-select"></select>
+            </div>
+
+        </div>
+
+        <div class="mt-4">
+            <button class="btn btn-success" onclick="updateBatch()">Update</button>
+            <a href="admin.html" class="btn btn-secondary">Cancel</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/js/batch-edit.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

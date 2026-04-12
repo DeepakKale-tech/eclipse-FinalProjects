@@ -25,11 +25,16 @@ public class SecurityConfig {
             			"/admin.html",
             			"/trainer.html",
             			"/student.html",
+            			"/users.html",
+            			"/batch-edit.html",
             			"/css/**",
             			"/js/**",
             			"/images/**",
-            			"/auth/**").permitAll()
-            	
+            			"/auth/**",
+            			"/favicon.ico").permitAll()
+            	.requestMatchers("/admin/**").authenticated()
+            	.requestMatchers("/ws/**").permitAll()
+            	.requestMatchers("/trainer/students").hasAnyRole("TRAINER", "ADMIN")
             	.requestMatchers("/admin/**").hasRole("ADMIN")
             	.requestMatchers("/student/**").hasRole("STUDENT")
             	//hasRole("ADMIN")

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Edit User</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header">✏️ Edit User</div>
+
+        <div class="card-body">
+
+            <input type="text" id="name" class="form-control mb-2" placeholder="Name">
+            <input type="email" id="email" class="form-control mb-2" placeholder="Email">
+            <input type="password" id="password" class="form-control mb-2" placeholder="Password">
+
+            <button class="btn btn-success" onclick="updateUser()">Update</button>
+            <a href="admin.html" class="btn btn-secondary">Back</a>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/users.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
