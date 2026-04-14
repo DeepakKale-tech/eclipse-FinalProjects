@@ -233,6 +233,8 @@ async function loadHistory() {
     });
 }
 
+let allUsers = [];
+
 async function loadUsers() {
 
     const token = localStorage.getItem("token");
@@ -243,27 +245,40 @@ async function loadUsers() {
         }
     });
 
-    const users = await response.json();
+    allUsers = await response.json();
+	
+	renderUsers(allUsers);
+    
+}
 
-    let table = document.getElementById("userTable");
-    table.innerHTML = "";
-    if (!users.length) {
-        table.innerHTML = `<tr><td colspan="5" class="text-center text-muted">No users found.</td></tr>`;
+function filterUsers(role) {
+
+    if (role === "ALL") {
+        renderUsers(allUsers);
         return;
     }
 
+    const filtered = allUsers.filter(u => u.role === role);
+    renderUsers(filtered);
+}
+
+function renderUsers(users) {
+
+    let table = document.getElementById("userTable");
+    table.innerHTML = "";
+
     users.forEach(user => {
-        let row = `<tr>
+        table.innerHTML += `
+        <tr>
             <td>${user.name}</td>
             <td>${user.email}</td>
 			<td>${user.phone}</td>
             <td>${user.role}</td>
-			<td>
-			     <button class="btn btn-warning btn-sm" onclick="window.location.href='users.html?id=${user.id}'">Edit</button>
-			     <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete</button>
-			</td>
+            <td>
+                <button class="btn btn-warning btn-sm" onclick="window.location.href='users.html?id=${user.id}'">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete</button>
+            </td>
         </tr>`;
-        table.innerHTML += row;
     });
 }
 

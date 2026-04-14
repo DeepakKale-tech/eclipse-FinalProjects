@@ -102,6 +102,22 @@ public class AdminController {
 		user.setName(updateUser.getName());
 		user.setEmail(updateUser.getEmail());
 		
+		 if (updateUser.getPhone() != null && !updateUser.getPhone().isEmpty()) {
+		        
+			 String phone = updateUser.getPhone();
+
+		     phone = phone.replaceAll("\\s+", "");
+		        
+		        // auto add +91
+		     if (!phone.startsWith("+91")) {
+		          phone = "+91" + phone;
+		      }
+		        
+
+		     user.setPhone(phone);
+		    }
+		 
+		
 		if(updateUser.getPassword() != null && !updateUser.getPassword().isEmpty())
 		{
 			user.setPassword(updateUser.getPassword());
