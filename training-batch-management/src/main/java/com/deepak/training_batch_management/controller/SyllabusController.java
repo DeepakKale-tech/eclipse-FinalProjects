@@ -30,16 +30,22 @@ public class SyllabusController
 		    Batch batch = batchRepository.findById(batchId)
 		            .orElseThrow(() -> new RuntimeException("Batch not found"));
 
-		    Boolean exists = syllabusRepository.findByBatchId(batchId)
-		    		.stream().anyMatch(t -> t.getTopicName().equalsIgnoreCase(topic.getTopicName()));
+		    boolean exists = syllabusRepository.findByBatchId(batchId)
+		    		.stream()
+		    		.anyMatch(t -> t.getTopicName().equalsIgnoreCase(topic.getTopicName()));
 		    
+		    if ("COMPLETED".equalsIgnoreCase(batch.getStatus())) {
+		        return ResponseEntity.badRequest().body("Cannot add topic to completed batch ❌");
+		    }
 		    if(exists)
 		    {
 		    	return ResponseEntity.badRequest().body("Topic Already Exists ❌");
 		    }
 		    topic.setBatch(batch);
 		    topic.setCompleted(false);
+		    
+		    syllabusRepository.save(topic);
 
-		    return ResponseEntity.ok(syllabusRepository.save(topic));
+		    return ResponseEntity.ok("Topic added ✅");
 		}
 }

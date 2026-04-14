@@ -17,6 +17,7 @@ async function loadUser() {
 
     document.getElementById("name").value = user.name;
     document.getElementById("email").value = user.email;
+	document.getElementById("phone").value = user.phone;
 }
 
 async function updateUser() {
@@ -25,16 +26,18 @@ async function updateUser() {
 	
 	const name = document.getElementById("name").value.trim();
 	const email = document.getElementById("email").value.trim();
+	const phone = document.getElementById("phone").value.trim();
 	const password = document.getElementById("password").value.trim();
 	
-	if (!name || !email) {
-	        alert("Name and Email required ❌");
+	if (!name || !email || !phone) {
+	        alert("Name, Email and Phone required ❌");
 	        return;
 	    }
 		
 		const user = {
 		       name: name,
-		       email: email
+		       email: email,
+			   phone : phone
 		   };
 		   
 	

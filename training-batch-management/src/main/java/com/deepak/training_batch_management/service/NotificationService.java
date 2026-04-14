@@ -18,6 +18,11 @@ public class NotificationService {
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 	
+	@Autowired
+	private EmailService emailService;
+	@Autowired
+	private WhatsAppService whatsAppService;
+	
 	 public void sendNotification(User user, String message) {
 
 	        Notification n = new Notification();
@@ -27,6 +32,13 @@ public class NotificationService {
 	        n.setReadStatus(false);
 
 	        notificationRepository.save(n);
+	        
+	        //email
+	        emailService.sendEmail(user.getEmail(), 
+	        		"Batch Training Notification", message);
+	        
+	        //whatsapp
+	        whatsAppService.sendWhatsApp(user.getPhone(), message);
 	        
 	        messagingTemplate.convertAndSend("/topic/notifications/"+user.getId() , n);
 	    }

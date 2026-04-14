@@ -1,3 +1,7 @@
+function goProfile() {
+    window.location.href = "profile.html";
+}
+
 async function loadBatches() {
 
     const token = localStorage.getItem("token");

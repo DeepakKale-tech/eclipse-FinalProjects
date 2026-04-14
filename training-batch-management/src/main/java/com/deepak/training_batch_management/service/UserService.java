@@ -16,6 +16,10 @@ public class UserService {
 	
 	public User createUser(User user)
 	{
+		if(userRepository.existsByEmail(user.getEmail()))
+		{
+			throw new RuntimeException("Email Already Exists ❌");
+		}
 		return userRepository.save(user);
 	}
 	
@@ -29,6 +33,7 @@ public class UserService {
 
 	    existing.setName(user.getName());
 	    existing.setEmail(user.getEmail());
+	    existing.setPhone(user.getPhone());
 	    existing.setRole(user.getRole());
 
 	    return userRepository.save(existing);

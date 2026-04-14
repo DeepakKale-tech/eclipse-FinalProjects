@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Profile</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="p-4">
+
+<h3>👤 My Profile</h3>
+
+<div class="card p-3 mb-3">
+    <label>Name</label>
+    <input id="name" class="form-control mb-2">
+
+    <label>Email</label>
+    <input id="email" class="form-control mb-2">
+    
+    <label>Phone</label>
+    <input id="phone" class="form-control mb-2">
+
+    <button class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
+</div>
+
+<div class="card p-3">
+    <h5>🔐 Change Password</h5>
+
+    <input type="password" id="oldPassword" class="form-control mb-2" placeholder="Old Password">
+    <input type="password" id="newPassword" class="form-control mb-2" placeholder="New Password">
+
+    <button class="btn btn-warning" onclick="changePassword()">Change Password</button>
+</div>
+
+<script src="js/profile.js"></script>
+</body>
+</html>

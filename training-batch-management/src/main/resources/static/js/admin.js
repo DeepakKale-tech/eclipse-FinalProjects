@@ -1,5 +1,8 @@
 console.log("admin.js loaded ✅");
 
+function goProfile() {
+    window.location.href = "profile.html";
+}
 async function createBatch() {
 
     const token = localStorage.getItem("token");
@@ -217,6 +220,7 @@ async function loadUsers() {
         let row = `<tr>
             <td>${user.name}</td>
             <td>${user.email}</td>
+			<td>${user.phone}</td>
             <td>${user.role}</td>
 			<td>
 			     <button class="btn btn-warning btn-sm" onclick="window.location.href='users.html?id=${user.id}'">Edit</button>
@@ -233,9 +237,10 @@ async function createUser() {
 
 	const name = document.getElementById("name").value.trim();
 	const email = document.getElementById("email").value.trim();
+	const phone = document.getElementById("phone").value.trim();
 	const password = document.getElementById("password").value.trim();
 
-	if (!name || !email || !password) {
+	if (!name || !email || !password || !phone) {
 	    alert("All fields are required ❌");
 	    return;
 	}
@@ -250,6 +255,7 @@ async function createUser() {
     const user = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
+		phone: document.getElementById("phone").value,
         password: document.getElementById("password").value,
         role: document.getElementById("role").value
     };
@@ -263,18 +269,21 @@ async function createUser() {
         body: JSON.stringify(user)
     });
 
+	const msg = await response.text();
+	
     if (response.ok) {
         alert(window.editingUserId ?"User updated ✅" :"User created ✅");
 		// RESET FORM 🔥
 		document.getElementById("name").value = "";
 		document.getElementById("email").value = "";
+		document.getElementById("phone").value = "";
 		document.getElementById("password").value = "";
 		document.getElementById("role").value = "STUDENT";
 
 		window.editingUserId = null;
         loadUsers(); // refresh table
     } else {
-        alert("Error creating user ❌");
+        alert(msg);
     }
 	window.editingUserId = null;
 }
@@ -293,6 +302,7 @@ async function editUser(id) {
 
     document.getElementById("name").value = u.name;
     document.getElementById("email").value = u.email;
+	document.getElementById("phone").value = u.phone;
     document.getElementById("role").value = u.role;
 
 	document.getElementById("password").value = "";

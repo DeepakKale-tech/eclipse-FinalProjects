@@ -12,6 +12,9 @@ import com.deepak.training_batch_management.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	
+	boolean existsByEmail(String email);
+	
 	Optional<User> findByEmail(String email);
 	List<User> findByNameContainingIgnoreCaseAndRole(String name, String role);
 	

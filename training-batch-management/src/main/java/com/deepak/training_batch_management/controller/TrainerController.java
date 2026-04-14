@@ -146,10 +146,18 @@ public class TrainerController {
 	    Batch batch = batchRepository.findById(batchId).orElseThrow();
 	    User student = userRepository.findById(studentId).orElseThrow();
 
+	    boolean alreadyAssigned = batch.getStudents()
+	    		.stream()
+	    		.anyMatch(s -> s.getId().equals(studentId));
+	    
+	    if(alreadyAssigned)
+	    {
+	    	return ResponseEntity.badRequest().body("Student already assigned ❌");
+	    }
 	    batch.getStudents().add(student);
 	    batchRepository.save(batch);
 
-	    return ResponseEntity.ok("Student Assigned");
+	    return ResponseEntity.ok("Student Assigned ✅");
 	}
 	
 	@GetMapping("/students")
@@ -170,11 +178,26 @@ public class TrainerController {
 
 	    Batch batch = batchRepository.findById(id).orElseThrow();
 
+	    if ("COMPLETED".equals(batch.getStatus())) {
+	        return ResponseEntity.badRequest().body("Batch already completed");
+	    }
+	    
 	    batch.setStatus("COMPLETED");
 	    batch.setProgressPercentage(100);
 
 	    batchRepository.save(batch);
-
+	    
+	    
+	    notificationService.sendNotification(batch.getTrainer(), 
+	    		"Batch Completed: "+batch.getBatchName());
+	    
+	    for(User student: batch.getStudents())
+	    {
+	    	 notificationService.sendNotification(
+	                 student,
+	                 "Batch completed: " + batch.getBatchName()
+	         );
+	    }
 	    return ResponseEntity.ok("Batch completed");
 	}
 	

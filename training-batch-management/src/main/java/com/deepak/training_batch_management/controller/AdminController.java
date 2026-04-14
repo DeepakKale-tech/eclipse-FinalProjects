@@ -5,10 +5,12 @@ import com.deepak.training_batch_management.repository.DomainRepository;
 import com.deepak.training_batch_management.repository.SyllabusRepository;
 import com.deepak.training_batch_management.repository.UserRepository;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,7 +68,14 @@ public class AdminController {
 	@PostMapping("/create-user")
 	public ResponseEntity<?> createUser(@Valid @RequestBody User user)
 	{
-		return ResponseEntity.ok(userService.createUser(user));
+		try
+		{
+			return ResponseEntity.ok(userService.createUser(user));
+		}catch(Exception e)
+		{
+	        return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 	
 	@GetMapping("/users")
@@ -187,4 +196,6 @@ public class AdminController {
 	public List<Domain> getDomains() {
 	    return domainRepository.findAll();
 	}
+	
+	
 }

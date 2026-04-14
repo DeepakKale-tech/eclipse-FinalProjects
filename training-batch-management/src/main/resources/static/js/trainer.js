@@ -2,6 +2,9 @@ let stompClient = null;
 let chartInstance = null;
 let calendarInstance = null;
 
+function goProfile() {
+    window.location.href = "profile.html";
+}
 // ================= CREATE BATCH =================
 async function createBatch() {
     const token = localStorage.getItem("token");
@@ -147,9 +150,11 @@ async function loadBatches() {
                 <td>
                     <ul>${topicList}</ul>
 
-                    <input class="form-control mb-1" id="topicName-${batch.id}" placeholder="New Topic">
+                    <input class="form-control mb-1" id="topicName-${batch.id}" 
+					placeholder="New Topic" ${batch.status === "COMPLETED" ? "disabled" : ""}>
 
-                    <button class="btn btn-sm btn-primary mb-1" onclick="addTopic(${batch.id})">
+                    <button class="btn btn-sm btn-primary mb-1" 
+					onclick="addTopic(${batch.id})"  ${batch.status === "COMPLETED" ? "disabled" : ""}>
                         Add
                     </button>
 
@@ -327,10 +332,15 @@ async function addTopic(batchId) {
         })
     });
 
+	const msg = await res.text();
+	
     if (res.ok) {
-        alert("Topic added ✅");
+        alert(msg);
         loadBatches();
-    }
+    }else
+		{
+			alert(msg);
+		}
 }
 
 // ================= COMPLETE TOPIC =================
@@ -350,13 +360,13 @@ async function completeSelectedTopic(batchId) {
     }
 }
 
-async function completeBatch(batchid) {
+async function completeBatch(batchId) {
 
     const token = localStorage.getItem("token");
 
 	const msgBox = document.getElementById('batchMsg-${batchId}'); 
     // assume batchId stored globally or from URL
-    //const batchId = localStorage.getItem("batchId");
+
 
     // Step 1: Check topics
     const topicRes = await fetch(`http://localhost:8080/trainer/topics/${batchId}`, {
@@ -389,6 +399,8 @@ async function completeBatch(batchid) {
 
     if (res.ok) {
         msgBox.innerText ="Batch marked as COMPLETED ✅";
+		alert("Batch marked as COMPLETED ✅");
+		loadBatches();
     } else {
         msgBox.innerText ="Error updating batch ❌";
     }
@@ -406,10 +418,15 @@ async function assignStudent(batchId) {
         }
     );
 
+	const msg = await res.text();
+	
     if (res.ok) {
-        alert("Assigned ✅");
+		alert(msg);
         loadBatches();
-    }
+    }else
+		{
+			alert(msg);
+		}
 }
 
 // ================= NOTIFICATIONS =================
