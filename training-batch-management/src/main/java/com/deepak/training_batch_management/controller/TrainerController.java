@@ -146,6 +146,10 @@ public class TrainerController {
 	    Batch batch = batchRepository.findById(batchId).orElseThrow();
 	    User student = userRepository.findById(studentId).orElseThrow();
 
+	    if ("COMPLETED".equalsIgnoreCase(batch.getStatus())) {
+	        return ResponseEntity.badRequest().body("Cannot add student. Batch already completed ❌");
+	    }
+	    
 	    boolean alreadyAssigned = batch.getStudents()
 	    		.stream()
 	    		.anyMatch(s -> s.getId().equals(studentId));

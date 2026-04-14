@@ -8,46 +8,74 @@
 <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body class="bg-light">
-<div class="container mt-4">
-	<nav class="navbar navbar-light bg-white shadow-sm px-3">
-            <span class="navbar-brand">Student Panel</span>
-		<button class="btn btn-info me-2" onclick="goProfile()">Profile</button>
- 		<button class="btn btn-danger" onclick="logout()">Logout</button>
-	</nav>
-    <h2>Student Dashboard 🎓</h2>
-
-    <!-- Notifications -->
-    <div class="card p-3 mb-3 shadow-sm">
-        <h4>
-            Notifications 🔔 
-            <span class="badge bg-danger" id="count">0</span>
-        </h4>
-        <ul id="notifications" class="list-group"></ul>
+<body>
+<div class="layout">
+    <div id="sidebar" class="text-white p-3">
+        <h4 class="mb-4">🎓 Student</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a class="nav-link" href="#dashboard">🏠 Dashboard</a></li>
+            <li class="nav-item mb-2"><a class="nav-link" href="#noti">🔔 Notifications</a></li>
+            <li class="nav-item mb-2"><a class="nav-link" href="#batches">📦 My Batches</a></li>
+            <li class="nav-item mb-2"><a class="nav-link" href="profile.html">🙍 Profile</a></li>
+        </ul>
     </div>
 
-    <!-- Batches -->
-    <div class="card p-3 shadow-sm">
-        <h4>My Batches</h4>
+    <div id="dashboard" class="main-content">
+        <nav class="navbar navbar-light shadow-sm px-3">
+            <span class="navbar-brand">Student Panel</span>
+            <div>
+                <button class="btn btn-info me-2" onclick="goProfile()">Profile</button>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+            </div>
+        </nav>
 
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Batch</th>
-                        <th>Progress</th>
-                        <th>Topics</th>
-                    </tr>
-                </thead>
-                <tbody id="batchTable"></tbody>
-            </table>
+        <div class="container-fluid p-4">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <h6 class="text-muted mb-1">Unread Notifications</h6>
+                        <h3 id="count">0</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <h6 class="text-muted mb-1">My Learning</h6>
+                        <p class="mb-0 text-muted">Track your assigned batches and completed topics.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="noti" class="card shadow-sm mb-4">
+                <div class="card-header">🔔 Notifications</div>
+                <ul id="notifications" class="list-group list-group-flush"></ul>
+            </div>
+
+            <div id="batches" class="card shadow-sm">
+                <div class="card-header">📦 My Batches</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Batch</th>
+                                    <th>Progress</th>
+                                    <th>Topics</th>
+                                </tr>
+                            </thead>
+                            <tbody id="batchTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
-
-<script src="js/student.js"></script>
+<footer class="text-center mt-4 text-muted small">
+    © 2026 Deepak Kale | Training Batch Management System 🚀
+</footer>
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/student.js"></script>
 
 </body>
 </html>

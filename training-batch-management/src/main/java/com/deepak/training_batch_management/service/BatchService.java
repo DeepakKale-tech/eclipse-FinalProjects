@@ -74,8 +74,9 @@ public class BatchService {
 	    return batchRepository.findAll();
 	}
 
+	
 	public List<Batch> findByDomain(String domain) {
-	    return batchRepository.findByDomainContainingIgnoreCase(domain);
+	    return batchRepository.findByDomain_NameContainingIgnoreCase(domain);
 	}
 
 	public List<Batch> findByStatus(String status) {

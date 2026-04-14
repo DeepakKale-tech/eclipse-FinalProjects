@@ -19,7 +19,7 @@
 
 <body>
 
-<div class="d-flex">
+<div class="layout">
 
     <!-- SIDEBAR -->
     <div id="sidebar" class="text-white p-3">
@@ -31,17 +31,20 @@
             <li class="nav-item mb-2"><a class="nav-link text-white" href="#noti">🔔 Notifications</a></li>
             <li class="nav-item mb-2"><a class="nav-link text-white" href="#prog">📊 Progress</a></li>
             <li class="nav-item mb-2"><a class="nav-link text-white" href="#calender">📅 Calendar</a></li>
+            <li class="nav-item mb-2"><a class="nav-link text-white" href="profile.html">🙍 Profile</a></li>
         </ul>
     </div>
 
     <!-- MAIN -->
-    <div id="main" class="flex-grow-1 content">
+    <div id="main" class="main-content">
 
         <!-- TOPBAR -->
         <nav class="navbar navbar-light bg-white shadow-sm px-3">
             <span class="navbar-brand">Trainer Panel</span>
+            <div>
             <button class="btn btn-info me-2" onclick="goProfile()">Profile</button>
             <button class="btn btn-outline-danger" onclick="logout()">Logout</button>
+            </div>
         </nav>
 
         <div class="container-fluid p-4">
@@ -103,9 +106,8 @@
                         	<label class="form-label">End Date</label>
                             <input type="date" id="endDate" class="form-control">
                         </div>
-                        <div class="col-md-3">
-                        	<label class="form-label"><p> </p> </label>
-                            <button class="btn btn-primary w-100" onclick="createBatch()">Create</button>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button class="btn btn-primary w-100" onclick="createBatch()">Create Batch</button>
                         </div>
                     </div>
 
@@ -123,8 +125,8 @@
             <!-- CALENDAR -->
             <div id="calender" class="card shadow-sm mb-4">
                 <div class="card-header">📅 Calendar</div>
-                <div class="card-body">
-                    <div id="calendar" style="min-height:500px;"></div>
+                <div class="card-body calendar-card-body">
+                    <div id="calendar"></div>
                 </div>
             </div>
 
@@ -139,6 +141,7 @@
                 <div class="card-header">📦 My Batches</div>
                 <div class="card-body">
                 
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="table-light">
                             <tr>
@@ -150,6 +153,7 @@
                         </thead>
                         <tbody id="batchTable"></tbody>
                     </table>
+                    </div>
                 </div>
                 
             </div>
@@ -158,13 +162,16 @@
         </div>
     </div>
 </div>
-
+<footer class="text-center mt-4 text-muted small">
+    © 2026 Deepak Kale | Training Batch Management System 🚀
+</footer>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/ui.js"></script>
 <script src="js/trainer.js"></script>
 
 </body>

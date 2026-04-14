@@ -33,9 +33,11 @@ async function updateProfile() {
     });
 
     if (res.ok) {
-        alert("Profile updated ✅");
+        if (typeof showToast === "function") showToast("Profile updated", "success");
+        else alert("Profile updated ✅");
     } else {
-        alert("Update failed ❌");
+        if (typeof showToast === "function") showToast("Update failed", "error");
+        else alert("Update failed ❌");
     }
 }
 
@@ -58,10 +60,15 @@ async function changePassword() {
     const msg = await res.text();
 
     if (res.ok) {
-        alert(msg);
+        if (typeof showToast === "function") showToast(msg, "success");
+        else alert(msg);
     } else {
-        alert(msg);
+        if (typeof showToast === "function") showToast(msg, "error");
+        else alert(msg);
     }
 }
 
+function goBack() {
+    window.history.back();
+}
 window.onload = loadProfile;

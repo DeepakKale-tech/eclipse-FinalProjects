@@ -39,8 +39,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@NotBlank(message = "Phone is required")
-	@Pattern(regexp = "^\\+91[6-9]\\d{9}$")
+	@NotBlank(message = "Phone is required,must be indian number")
+	@Pattern( regexp = "^(\\+91)?[6-9]\\d{9}$")
 	@Column(nullable = false, unique = true)
 	private String phone;
 }

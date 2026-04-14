@@ -39,10 +39,12 @@ async function createBatch() {
 
 	window.editingBatchId = null;
     if (response.ok) {
-        alert("Batch created successfully ✅");
+        if (typeof showToast === "function") showToast("Batch saved successfully", "success");
+        else alert("Batch created successfully ✅");
         loadBatches(); // refresh list
     } else {
-        alert("Failed to create batch ❌");
+        if (typeof showToast === "function") showToast("Failed to save batch", "error");
+        else alert("Failed to create batch ❌");
     }
 }
 
@@ -84,6 +86,10 @@ async function loadBatches() {
 
     let table = document.getElementById("batchTable");
     table.innerHTML = "";
+    if (!data.length) {
+        table.innerHTML = `<tr><td colspan="9" class="text-center text-muted">No batches found.</td></tr>`;
+        return;
+    }
 
     data.forEach(b => {
         table.innerHTML += `
@@ -118,10 +124,12 @@ async function deleteBatch(id) {
     });
 
     if (res.ok) {
-        alert("Deleted ✅");
+        if (typeof showToast === "function") showToast("Batch deleted", "success");
+        else alert("Deleted ✅");
         loadBatches();
     } else {
-        alert("Delete failed ❌");
+        if (typeof showToast === "function") showToast("Delete failed", "error");
+        else alert("Delete failed ❌");
     }
 }
 
@@ -148,15 +156,34 @@ async function searchTrainer() {
 async function searchBatch() {
 
 	const token = localStorage.getItem("token");
-    const domain = document.getElementById("searchDomain").value;
+    const domain = document.getElementById("searchDomain").value.trim();
 
+	if (!domain) {
+	        if (typeof showToast === "function") showToast("Enter domain to search", "warning");
+	        else alert("Enter domain to search ❌");
+	        return;
+	    }
+		
     const res = await fetch(`http://localhost:8080/admin/batch/search?domain=${domain}`,{
 	    headers: {
 	        "Authorization": "Bearer " + token
 	    }
 	});
+	
+	if (!res.ok) {
+	       if (typeof showToast === "function") showToast("Search failed", "error");
+	       else alert("Search failed ❌");
+	       return;
+	   }
+	   
     const data = await res.json();
 
+	if (data.length === 0) {
+	       if (typeof showToast === "function") showToast("No batches found", "info");
+	       else alert("No batches found 😅");
+	       return;
+	   }
+	   
     let table = document.getElementById("batchTable");
     table.innerHTML = "";
 
@@ -170,6 +197,7 @@ async function searchBatch() {
             <td>${b.startDate}</td>
             <td>${b.endDate}</td>
             <td>${b.status}</td>
+			<td>${b.trainer ? b.trainer.name : "N/A"}</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editBatch(${b.id})">Edit</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteBatch(${b.id})">Delete</button>
@@ -190,6 +218,10 @@ async function loadHistory() {
 
     let table = document.getElementById("historyTable");
     table.innerHTML = "";
+    if (!data.length) {
+        table.innerHTML = `<tr><td colspan="3" class="text-center text-muted">No completed batches yet.</td></tr>`;
+        return;
+    }
 
     data.forEach(b => {
         table.innerHTML += `
@@ -215,6 +247,10 @@ async function loadUsers() {
 
     let table = document.getElementById("userTable");
     table.innerHTML = "";
+    if (!users.length) {
+        table.innerHTML = `<tr><td colspan="5" class="text-center text-muted">No users found.</td></tr>`;
+        return;
+    }
 
     users.forEach(user => {
         let row = `<tr>
@@ -241,7 +277,8 @@ async function createUser() {
 	const password = document.getElementById("password").value.trim();
 
 	if (!name || !email || !password || !phone) {
-	    alert("All fields are required ❌");
+	    if (typeof showToast === "function") showToast("All fields are required", "warning");
+	    else alert("All fields are required ❌");
 	    return;
 	}
 	let url = "http://localhost:8080/admin/create-user";
@@ -272,7 +309,8 @@ async function createUser() {
 	const msg = await response.text();
 	
     if (response.ok) {
-        alert(window.editingUserId ?"User updated ✅" :"User created ✅");
+        if (typeof showToast === "function") showToast(window.editingUserId ? "User updated" : "User created", "success");
+        else alert(window.editingUserId ?"User updated ✅" :"User created ✅");
 		// RESET FORM 🔥
 		document.getElementById("name").value = "";
 		document.getElementById("email").value = "";
@@ -283,27 +321,36 @@ async function createUser() {
 		window.editingUserId = null;
         loadUsers(); // refresh table
     } else {
-        alert(msg);
+        if (typeof showToast === "function") showToast(msg || "Unable to save user", "error");
+        else alert(msg);
     }
 	window.editingUserId = null;
 }
 
 async function editUser(id) {
 
-	const res = await fetch("http://localhost:8080/admin/users", {
+	const token = localStorage.getItem("token");
+	
+	const res = await fetch('http://localhost:8080/admin/user/${id}', {
 	        headers: {
 	            "Authorization": "Bearer " + token
 	        }
 	    });
-    const users = await res.json();
+		
+		if (!res.ok) {
+		      alert("Failed to load user ❌");
+		      return;
+		  }
+		  
+    const u = await res.json();
 
 	
-    const u = users.find(x => x.id === id);
+    //const u = users.find(x => x.id === id);
 
-    document.getElementById("name").value = u.name;
-    document.getElementById("email").value = u.email;
-	document.getElementById("phone").value = u.phone;
-    document.getElementById("role").value = u.role;
+    document.getElementById("name").value = u.name || "";
+    document.getElementById("email").value = u.email || "";
+	document.getElementById("phone").value = u.phone || "";
+    document.getElementById("role").value = u.role || "";
 
 	document.getElementById("password").value = "";
 	
@@ -324,10 +371,12 @@ async function deleteUser(id) {
     });
 
     if (res.ok) {
-        alert("User deleted ✅");
+        if (typeof showToast === "function") showToast("User deleted", "success");
+        else alert("User deleted ✅");
         loadUsers();
     } else {
-        alert("Delete failed ❌");
+        if (typeof showToast === "function") showToast("Delete failed", "error");
+        else alert("Delete failed ❌");
     }
 }
 
@@ -339,7 +388,8 @@ async function addDomain() {
 	
 	if(!name)
 		{
-			alert("Domain Name required ❌");
+			if (typeof showToast === "function") showToast("Domain name required", "warning");
+			else alert("Domain Name required ❌");
 			return;
 		}
 		
@@ -357,18 +407,21 @@ async function addDomain() {
 					
 				if (res.ok)
 					 {
-				     	alert("Domain added ✅");
+				     	if (typeof showToast === "function") showToast("Domain added", "success");
+				     	else alert("Domain added ✅");
 						document.getElementById("newDomain").value = "";
 				     	loadDomains();
 				 	 }else 
 					 {
-					    alert(msg); 
+					    if (typeof showToast === "function") showToast(msg || "Unable to add domain", "error");
+					    else alert(msg); 
 					  }
 	}
 	catch(err)
 	{
 		console.error(err);
-		alert("Server error ❌")
+		if (typeof showToast === "function") showToast("Server error", "error");
+		else alert("Server error ❌");
 	}
 }
 

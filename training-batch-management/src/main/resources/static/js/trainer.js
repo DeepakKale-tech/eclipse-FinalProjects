@@ -126,7 +126,18 @@ async function loadBatches() {
                 : "<li>No topics</li>";
 
             // ===== STUDENTS =====
-            let studentList = batch.students?.length > 0
+			let assignBtn = "";
+
+			if (batch.status === "COMPLETED") {
+			    assignBtn = `<button class="btn btn-sm btn-secondary" disabled>Completed ✔</button>`;
+			} else {
+			    assignBtn = `
+			        <button class="btn btn-sm btn-warning" onclick="assignStudent(${batch.id})">
+			            Assign
+			        </button>`;
+			}		
+			
+			let studentList = batch.students?.length > 0
                 ? batch.students.map(s => `<li>${s.name}</li>`).join("")
                 : "<li>No students</li>";
 
@@ -183,9 +194,7 @@ async function loadBatches() {
                         ${studentOptions}
                     </select>
 
-                    <button class="btn btn-sm btn-warning" onclick="assignStudent(${batch.id})">
-                        Assign
-                    </button>
+					${assignBtn}
                 </td>
             </tr>`;
 
@@ -301,7 +310,10 @@ function loadCalendar() {
 
         calendarInstance = new FullCalendar.Calendar(calendarEl, {
             initialView: "dayGridMonth",
-            height: 500,
+            height: "auto",
+            contentHeight: "auto",
+            fixedWeekCount: false,
+            expandRows: true,
             events: events
         });
 
@@ -364,7 +376,7 @@ async function completeBatch(batchId) {
 
     const token = localStorage.getItem("token");
 
-	const msgBox = document.getElementById('batchMsg-${batchId}'); 
+	const msgBox = document.getElementById(`batchMsg-${batchId}`); 
     // assume batchId stored globally or from URL
 
 
@@ -399,7 +411,8 @@ async function completeBatch(batchId) {
 
     if (res.ok) {
         msgBox.innerText ="Batch marked as COMPLETED ✅";
-		alert("Batch marked as COMPLETED ✅");
+		if (typeof showToast === "function") showToast("Batch marked as COMPLETED", "success");
+		else alert("Batch marked as COMPLETED ✅");
 		loadBatches();
     } else {
         msgBox.innerText ="Error updating batch ❌";
@@ -497,7 +510,8 @@ function connectWebSocket() {
 
             stompClient.subscribe(`/topic/notifications/${user.id}`, function (msg) {
                 const notification = JSON.parse(msg.body);
-                alert("🔔 " + notification.message);
+                if (typeof showToast === "function") showToast("🔔 " + notification.message, "info", 3000);
+                else alert("🔔 " + notification.message);
                 loadNotifications();
             });
         });

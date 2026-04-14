@@ -9,22 +9,52 @@
 
 </head>
 
-<body class="bg-light">
+<body>
+<div class="auth-page">
+    <div class="card auth-card shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-6 auth-left d-flex flex-column justify-content-between">
+                <div>
+                    <h2 class="mb-3">Training Batch Management</h2>
+                    <p class="mb-0 opacity-75">Plan batches, assign students, and track progress from one dashboard.</p>
+                </div>
+                <div>
+                    <div class="kpi-label text-white-50">Secure Access</div>
+                    <h5 class="mb-0">Role-based login for Admin, Trainer, and Student</h5>
+                </div>
+            </div>
+            <div class="col-md-6 auth-right">
+                <h3 class="mb-3">Login</h3>
+                <p class="section-subtitle mb-4">Enter your account credentials to continue.</p>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input class="form-control" type="email" id="email" placeholder="name@example.com">
+                </div>
 
-    <div class="card p-4 shadow" style="width:350px;">
-        <h3 class="text-center mb-3">Login 🔐</h3>
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input class="form-control" type="password" id="password" placeholder="Enter password">
+                </div>
 
-        <input class="form-control mb-2" type="email" id="email" placeholder="Email">
-        <input class="form-control mb-3" type="password" id="password" placeholder="Password">
-
-        <button class="btn btn-primary w-100" onclick="login()">Login</button>
+                <button id="loginBtn" class="btn btn-primary w-100" onclick="login()">Login</button>
+            </div>
+        </div>
     </div>
-
 </div>
-
-<script src="js/login.js"></script>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1080">
+    <div id="loginToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div id="loginToastBody" class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<footer class="text-center mt-4 text-muted small">
+    © 2026 Deepak Kale | Training Batch Management System 🚀
+</footer>
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/login.js"></script>
 </body>
 </html>

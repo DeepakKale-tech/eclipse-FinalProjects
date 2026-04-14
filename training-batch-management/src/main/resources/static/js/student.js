@@ -20,6 +20,11 @@ async function loadBatches() {
     let table = document.getElementById("batchTable");
     table.innerHTML = "";
 
+    if (!batches.length) {
+        table.innerHTML = `<tr><td colspan="3" class="text-center text-muted">No batches assigned yet.</td></tr>`;
+        return;
+    }
+
     for (let batch of batches) {
 
         // 🔥 FETCH TOPICS SEPARATELY
@@ -110,7 +115,8 @@ async function markAsRead(id) {
     if (res.ok) {
         loadNotifications(); // refresh UI
     } else {
-        alert("Failed to update notification ❌");
+        if (typeof showToast === "function") showToast("Failed to update notification", "error");
+        else alert("Failed to update notification ❌");
     }
 }
 

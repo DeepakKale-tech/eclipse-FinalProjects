@@ -26,7 +26,8 @@ async function loadBatch() {
 
     if (!res.ok) {
 		console.error("Error:", res.status);
-        alert("Failed to load batch ❌");
+        if (typeof showToast === "function") showToast("Failed to load batch", "error");
+        else alert("Failed to load batch ❌");
         return;
     }
 
@@ -96,7 +97,8 @@ async function updateBatch() {
     const trainerId = document.getElementById("trainerId").value;
 
     if (!batchName || !domainId || !trainerId) {
-        alert("Fill required fields ❌");
+        if (typeof showToast === "function") showToast("Fill required fields", "warning");
+        else alert("Fill required fields ❌");
         return;
     }
 
@@ -120,9 +122,11 @@ async function updateBatch() {
     );
 
     if (res.ok) {
-        alert("Batch updated ✅");
+        if (typeof showToast === "function") showToast("Batch updated", "success");
+        else alert("Batch updated ✅");
         window.location.href = "admin.html";
     } else {
-        alert("Update failed ❌");
+        if (typeof showToast === "function") showToast("Update failed", "error");
+        else alert("Update failed ❌");
     }
 }

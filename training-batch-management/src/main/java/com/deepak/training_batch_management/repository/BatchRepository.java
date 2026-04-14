@@ -16,4 +16,6 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
 	List<Batch> findByDomainContainingIgnoreCase(String domain);
 
 	List<Batch> findByStatus(String status);
+	
+	List<Batch> findByDomain_NameContainingIgnoreCase(String domain);
 }

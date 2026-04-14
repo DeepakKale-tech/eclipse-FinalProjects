@@ -30,7 +30,8 @@ async function updateUser() {
 	const password = document.getElementById("password").value.trim();
 	
 	if (!name || !email || !phone) {
-	        alert("Name, Email and Phone required ❌");
+	        if (typeof showToast === "function") showToast("Name, Email and Phone required", "warning");
+	        else alert("Name, Email and Phone required ❌");
 	        return;
 	    }
 		
@@ -51,9 +52,11 @@ async function updateUser() {
 			      });
 
 			      if (res.ok) {
-			          alert("User updated ✅");
+			          if (typeof showToast === "function") showToast("User updated", "success");
+			          else alert("User updated ✅");
 			          window.location.href = "admin.html";
 			      } else {
-			          alert("Update failed ❌");
+			          if (typeof showToast === "function") showToast("Update failed", "error");
+			          else alert("Update failed ❌");
 			      }
 }

@@ -197,5 +197,10 @@ public class AdminController {
 	    return domainRepository.findAll();
 	}
 	
+	@GetMapping("/user/{id}")
+	public User getUserById(@PathVariable Long id) {
+	    return userRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+	}
 	
 }

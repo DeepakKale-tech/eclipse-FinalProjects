@@ -12,10 +12,10 @@
 
 <body>
 
-<div class="d-flex">
+<div class="layout">
 
     <!-- SIDEBAR -->
-    <div class="bg-dark text-white p-3" style="width:250px; min-height:100vh; position:fixed;">
+    <div id="sidebar" class="text-white p-3">
         <h4 class="mb-4">👑 Admin</h4>
 
         <ul class="nav flex-column">
@@ -23,17 +23,20 @@
             <li class="nav-item mb-2"><a class="nav-link text-white" href="#batch">📦 Create Batch</a></li>
             <li class="nav-item mb-2"><a class="nav-link text-white" href="#batchList">📋 Batches</a></li>
             <li class="nav-item mb-2"><a class="nav-link text-white" href="#history">📜 History</a></li>
+            <li class="nav-item mb-2"><a class="nav-link text-white" href="profile.html">🙍 Profile</a></li>
         </ul>
     </div>
 
     <!-- MAIN -->
-    <div class="flex-grow-1" style="margin-left:250px;">
+    <div class="main-content">
 
         <!-- TOPBAR -->
         <nav class="navbar bg-white shadow-sm px-3">
             <span class="navbar-brand">Admin Panel</span>
+            <div>
             <button class="btn btn-info me-2" onclick="goProfile()">Profile</button>
             <button class="btn btn-danger" onclick="logout()">Logout</button>
+            </div>
         </nav>
 
         <div class="container-fluid p-4">
@@ -68,9 +71,8 @@
                                 <option value="STUDENT">STUDENT</option>
                             </select>
                         </div>
-                        <div class="col-md-1">
-                        	<label class="form-label"><p> </p></label>
-                            <button class="btn btn-primary w-100" onclick="createUser()">Add</button>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button class="btn btn-primary w-100" onclick="createUser()">Add User</button>
                         </div>
                     </div>
 
@@ -81,6 +83,7 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-header">📋 Users List</div>
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="table-dark">
                             <tr>
@@ -93,6 +96,7 @@
                         </thead>
                         <tbody id="userTable"></tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -169,6 +173,7 @@
             <div id="batchList" class="card shadow-sm mb-4">
                 <div class="card-header">📋 Batch List</div>
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="table-light">
                             <tr>
@@ -185,6 +190,7 @@
                         </thead>
                         <tbody id="batchTable"></tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -192,6 +198,7 @@
             <div id="history" class="card shadow-sm">
                 <div class="card-header">📜 Completed Batches</div>
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="table-dark">
                             <tr>
@@ -202,14 +209,19 @@
                         </thead>
                         <tbody id="historyTable"></tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-
-<script src="js/admin.js"></script>
+<footer class="text-center mt-4 text-muted small">
+    © 2026 Deepak Kale | Training Batch Management System 🚀
+</footer>
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/admin.js"></script>
+
 </body>
 </html>
